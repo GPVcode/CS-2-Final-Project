@@ -16,7 +16,7 @@ using namespace std;
     // Debt algorithms
 
 int main(){
-    cout << "Welcome to the ??? Tool. What would you like to do?";
+    cout << "Welcome to the Good Grassroots Finanical Practice Tool. What would you like to do?";
 }
 
 #endif

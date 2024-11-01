@@ -4,38 +4,86 @@ class Fund
 {
 protected:
     // Holds realtime value for fund. Can be influced thru other classes.
-    float currentPocket;
-    float currentInvestments;
-    float currentBanking;
-    float changeValue;
     float totalAll;
+    float pendingChange;
 public:
-    // TODO: Create a proper constructor
-
-    virtual ~Fund(){}; // virtual destructor for Fund derived classes
-
+    // TODO: Create a proper constructor once finished.
+    Fund();
+     // virtual destructor for Fund derived classes
+    virtual ~Fund(){};
+    // Base Class Items
     virtual float getCurrentFunding() const {
       return totalAll;
     }
-    virtual float getCurrentInvestments() const {
-      return currentInvestments;
-    }
-    virtual float getCurrentBanking() const {
-      return currentBanking;
-    }
-    virtual float getCurrentBanking() const {
-      return currentPocket;
-    }
-    // Base function (Would be manipulated and send value backward to apply change to either Banking, Investments, or Out of Pocket funds.)
-    virtual void setChange(int newChange) {
-      changeValue = newChange;
-    }
     // In most cases will be called after a change is made to get funding up to date; unless showing a preview (TODO).
     virtual void setTotalAll() {
-      totalAll = currentPocket + currentInvestments + currentBanking;
+      totalAll = OutofPocket::getCurrentPocket() + Banking::getCurrentBanking() + Investments::getCurrentInvestments(); // Changed to returns from each
     }
-    void previewFunds(); // TODO implement preview function.
 };
+
+class OutOfPocket : Fund {
+protected:
+  float currentPocket;
+public:
+  OutOfPocket();
+  virtual float getCurrentPocket() const {
+    return currentPocket;
+  }
+};
+
+class Investments : Fund {
+protected:
+  float currentInvestments;
+public:
+  Investments();
+  virtual float getCurrentInvestments() const {
+    return currentInvestments;
+  }
+};
+
+class Banking : Fund {
+protected:
+  float currentBanking;
+  bool isLocked;
+public:
+  Banking();
+  virtual float getCurrentBanking() const {
+    return currentBanking;
+  }
+  virtual void withdraw() {
+    char read;
+    if(currentBanking <= 0) {
+      cout << "Are you really sure you want withdraw this amount: " << pendingChange << endl;
+      cout <<  "Doing so will lock your bank account. Y/N";
+      cin >> read;
+      if (read == "Y"){
+        isLocked = true;
+      } else {
+        currentBanking = currentBanking + pendingChange;
+        cout <<  "Declined Option, funds have not been modified and buffer cleared.";
+      }
+    }else{
+      cout << "CONFIRM pending withdrawal of :" << pendingChange << "? Y/N" endl;
+      cin >> read;
+      if (read == "Y"){
+        currentBanking = currentBanking - pendingChange;
+      } else {
+        cout << "Declined Option, funds have not been modified and buffer cleared.";
+        pendingChange = 0;
+      }
+    }
+  }
+  virtual void deposit() {
+    cout << "CONFIRM pending deposit of :" << pendingChange << "? Y/N" endl;
+    char read;
+    cin >> read;
+    if (read == "Y"){
+      currentBanking = currentBanking + pendingChange;
+    } else {
+      cout << "Declined Option, funds have not been modified and buffer cleared.";
+      pendingChange = 0;
+  }
+}
 
 #endif
 
