@@ -1,4 +1,10 @@
+using namespace std;
 #include <iostream>
+#include <string>
+
+#ifndef "Fund.h"
+#ifndef "User.h"
+#ifndef "Debts.h"
 
 // Figure out most optimal strategy for paying down debts quickest and building your fund fastest.
 // with this in mind, what is something we can start building?
@@ -10,5 +16,7 @@
     // Debt algorithms
 
 int main(){
-    std::cout << "hello world!" << std::endl;
+    cout << "Welcome to the ??? Tool. What would you like to do?";
 }
+
+#endif
