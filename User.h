@@ -1,4 +1,9 @@
-class User{
-    protected:
-    public:
-}
+#ifndef "main.cpp"
+
+class User
+{
+protected:
+public:
+};
+
+#endif
