@@ -1,26 +1,28 @@
 #ifndef "main.cpp"
+#define FUND_H
 
 class Fund
 {
 protected:
-    // Holds realtime value for fund. Can be influced thru other classes.
-    float totalAll;
-    float pendingChange;
+  // Holds realtime value for fund. Can be influced thru other classes.
+  float totalAll;
+  float pendingChange;
 public:
-    // TODO: Create a proper constructor once finished.
-    Fund();
-     // virtual destructor for Fund derived classes
-    virtual ~Fund(){};
-    // Base Class Items
-    virtual float getCurrentFunding() const {
-      return totalAll;
-    }
-    // In most cases will be called after a change is made to get funding up to date; unless showing a preview (TODO).
-    virtual void setTotalAll() {
-      totalAll = OutofPocket::getCurrentPocket() + Banking::getCurrentBanking() + Investments::getCurrentInvestments(); // Changed to returns from each
-    }
+  // TODO: Create a proper constructor once finished.
+  Fund();
+  // virtual destructor for Fund derived classes
+  virtual ~Fund(){};
+  // Base Class Items
+  virtual float getCurrentFunding() const {
+    return totalAll;
+  }
+  // In most cases will be called after a change is made to get funding up to date; unless showing a preview (TODO).
+  virtual void setTotalAll() {
+    totalAll = OutofPocket::getCurrentPocket() + Banking::getCurrentBanking() + Investments::getCurrentInvestments(); // Changed to returns from each
+  }
 };
 
+#endif
 class OutOfPocket : Fund {
 protected:
   float currentPocket;
@@ -82,10 +84,10 @@ public:
     } else {
       cout << "Declined Option, funds have not been modified and buffer cleared.";
       pendingChange = 0;
+    }
   }
 }
 
-#endif
 
 // What would happen if it were to go negative on preview changes. "Game-ify" it so that it makes it clear that it should not be done.
 // If not previewing, at all times should update funding types immediately.
