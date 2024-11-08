@@ -5,6 +5,7 @@ using namespace std;
 #ifndef "Fund.h"
 #ifndef "User.h"
 #ifndef "Debts.h"
+// #ifndef "Score.h" If time, implement this header to attach to user and give a rating relative to earlier entered data (TODO)
 
 // Figure out most optimal strategy for paying down debts quickest and building your fund fastest.
 // with this in mind, what is something we can start building?
