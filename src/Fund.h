@@ -21,37 +21,52 @@ public:
     totalAll = OutofPocket::getCurrentPocket() + Banking::getCurrentBanking() + Investments::getCurrentInvestments(); // Changed to returns from each
   }
 };
-
-#endif
 class OutOfPocket : Fund {
-protected:
-  float currentPocket;
 public:
+  // Changed to public to allow for call back. Need to find a way to secure this and still maintain call back.
+  float currentPocket;
   OutOfPocket();
   virtual float getCurrentPocket() const {
     return currentPocket;
   }
+  virtual void modifyPocket(){
+    // No need for a data structure here. Will just use simple vector.
+  }
 };
 
 class Investments : Fund {
-protected:
-  float currentInvestments;
 public:
+  // Changed to public to allow for call back. Need to find a way to secure this and still maintain call back.
+  float currentInvestments;
+  // Use a data structure to store investments by name and amount (for realism). (TODO)
   Investments();
   virtual float getCurrentInvestments() const {
     return currentInvestments;
   }
+  virtual void addInvestment() {
+    // Data Structure must follow a format of: [investmentName, investmentAmount, investmentType, memLocation]
+    cout << "On the line enter your details about the investment you have wished to enter." << endl;
+    // Gets line for investement; Add its to new index.
+    cout << "Where would you like to take the funding for the investment from? Bank, Pocket, Surplus" << endl;
+  }
+  virtual void modifyInvestment(){
+    // Data Structure part to modify values upon.
+  }
+  virtual void dissolveInvestment(){
+    // Data Structure part to delete from index.
+  }
 };
 
 class Banking : Fund {
-protected:
+public:
+  // Changed to public to allow for call back. Need to find a way to secure this and still maintain call back.
   float currentBanking;
   bool isLocked;
-public:
   Banking();
   virtual float getCurrentBanking() const {
     return currentBanking;
   }
+  // Utilize the following data structure: [bankName, investmentAmount, accountType, memLocation]
   virtual void withdraw() {
     char read;
     if(currentBanking <= 0) {
@@ -87,7 +102,7 @@ public:
     }
   }
 }
-
+#endif
 
 // What would happen if it were to go negative on preview changes. "Game-ify" it so that it makes it clear that it should not be done.
 // If not previewing, at all times should update funding types immediately.
