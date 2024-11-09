@@ -1,4 +1,5 @@
-#ifndef "main.cpp"
+#ifndef DEBT_H
+#define DEBT_H
 
 class Debts
 {
