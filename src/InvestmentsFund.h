@@ -21,7 +21,7 @@ struct InvestmentPosition {
     // - getTotalAmount
     // - deposit - add funds to investments
     // - withdraw - withdraw funds
-    
+
 class InvestmentsFund : public Fund {
 private:
     std::vector<InvestmentPosition> positions;
@@ -32,6 +32,8 @@ public:
 
     void addPosition(const std::string& name, double amount, double avgPerformance);
     void listPositions() const;
+    void projectGrowth(int years) const;
+
 };
 
 #endif

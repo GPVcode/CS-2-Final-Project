@@ -22,8 +22,18 @@ int main(){
 
     // Print the total amount to confirm it includes initial + added positions
     std::cout << "Total amount in fund after adding positions: " << userFund.getTotalAmount() << std::endl;
-    std::cout << "My current positions:"  << std::endl;
+    // listing all positions
     userFund.listPositions();
+
+    std::cout << std::endl;
+
+    int years;
+    std::cout << "Let's examine projected growth. Please enter years: ";
+    std::cin >> years;
+
+    std::cout << "Here is the projected growth rate for the given fund: " << std::endl;
+    userFund.projectGrowth(years);
+
 
     return 0;
 }
