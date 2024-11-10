@@ -1,4 +1,4 @@
-#include "Fund.h"
+#include "../include/Fund.h"
 
 // methods inherited by this class:
     // - getTotalAmount

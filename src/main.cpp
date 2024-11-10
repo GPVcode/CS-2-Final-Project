@@ -1,7 +1,7 @@
 #include <iostream>
 #include <string>
 
-#include "InvestmentsFund.h"
+#include "../include/InvestmentsFund.h"
 
 // Figure out most optimal strategy for paying down debts quickest and building your fund fastest.
 // with this in mind, what is something we can start building?
@@ -31,7 +31,7 @@ int main(){
     std::cout << "Let's examine projected growth. Please enter years: ";
     std::cin >> years;
 
-    std::cout << "Here is the projected growth rate for the given fund: " << std::endl;
+    std::cout << "Projected fund growth rate: " << std::endl;
     userFund.projectGrowth(years);
 
 

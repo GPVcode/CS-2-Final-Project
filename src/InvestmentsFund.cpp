@@ -1,10 +1,11 @@
-#include "InvestmentsFund.h" 
+#include "../include/InvestmentsFund.h"
+#include <iostream>
 #include <cmath>
+
 // this is the implementation file for Investments fund
 
 // Constructor implementation
 InvestmentsFund::InvestmentsFund(double initialInvestmentsAmount) : Fund(initialInvestmentsAmount){}
-
 
 // implementation for adding positions to your investments
 void InvestmentsFund::addPosition(const std::string& name, double amount, double avgPerformance){
@@ -31,10 +32,19 @@ void InvestmentsFund::projectGrowth(int years) const {
         // We re-create the Compound Interest Formula: Future Calue = Principal x (1 + Rate)^Time
             // This calculates the future value of an investment
         double futureValue = position.amount * pow(1 + (position.avgPerformance / 100), years);
-        projectedTotal += futureValue;
+        double change = futureValue - position.amount;
 
-        std::cout << "Projected value of " << position.name << " after " << years << " years: $" << futureValue << std::endl;
+        std::cout << "Projected value of " << position.name << " after " << years << " years: $" << futureValue 
+            << " (" << (change >= 0 ? "Increase: $" : "Decrease: $") 
+                  << std::abs(change) << ")" << std::endl;
+        
+        projectedTotal += futureValue;
     }
 
-    std::cout << "Total projected portfolio value after " << years << " years: $" << projectedTotal << std::endl;
+    double initialTotal = getTotalAmount();
+    double totalChange = projectedTotal - initialTotal;
+    std::cout << "Total projected portfolio value after " << years << " years: $" 
+        << projectedTotal << " (" << (totalChange >= 0 ? "Increase: $" : "Decrease: $") 
+        << std::abs(totalChange) << ")" << std::endl;
+
 }
