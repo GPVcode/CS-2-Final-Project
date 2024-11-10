@@ -1,15 +1,23 @@
-#include "Fund.h"
-#include <iostream>
+#include "InvestmentsFund.h" 
 
-// methods inherited by this class:
-    // - getTotalAmount
-    // - deposit - add funds to investments
-    // - withdraw - withdraw funds
+// this is the implementation file for Investments fund
 
-class InvestmentsFund : public Fund {
-public:
-    // Constructor for DerivedClass passes arguments to BaseClass constructor
-    InvestmentsFund(double investmentsAmount)
-        : Fund(investmentsAmount) {}
+// Constructor implementation
+InvestmentsFund::InvestmentsFund(double initialInvestmentsAmount) : Fund(initialInvestmentsAmount){}
 
+
+// implementation for adding positions to your investments
+void InvestmentsFund::addPosition(const std::string& name, double amount, double avgPerformance){
+    InvestmentPosition position(name, amount, avgPerformance);
+    positions.push_back(position);
+    totalAmount += amount; // update totalamount in baseclass
 };
+
+void InvestmentsFund::listPositions() const{
+    std::cout << "Listing all investment positions:" << std::endl;
+
+    for(size_t i = 0; i < positions.size(); i++){
+        const InvestmentPosition& position = positions[i];
+        std::cout << "Name: " << position.name << ", Amount: " << position.amount << ", Average Performance: " << position.avgPerformance << "%" << std::endl;
+    }
+}

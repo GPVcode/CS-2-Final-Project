@@ -1,11 +1,7 @@
-using namespace std;
 #include <iostream>
 #include <string>
 
-#ifndef "Fund.h"
-#ifndef "User.h"
-#ifndef "Debts.h"
-// #ifndef "Score.h" If time, implement this header to attach to user and give a rating relative to earlier entered data (TODO)
+#include "InvestmentsFund.h"
 
 // Figure out most optimal strategy for paying down debts quickest and building your fund fastest.
 // with this in mind, what is something we can start building?
@@ -17,7 +13,17 @@ using namespace std;
     // Debt algorithms
 
 int main(){
-    cout << "Welcome to the Good Grassroots Finanical Practice Tool. What would you like to do?";
-}
+    std::cout << "Welcome to the Good Grassroots Finanical Practice Tool. What would you like to do?" << std::endl;
+    
+    InvestmentsFund userFund(500.0);
+    userFund.addPosition("Bond A", 1000.0, 4.0);
+    userFund.addPosition("Stock A", 1500.0, 10.5);
+    userFund.addPosition("Stock B", 500.0, 7.8);
 
-#endif
+    // Print the total amount to confirm it includes initial + added positions
+    std::cout << "Total amount in fund after adding positions: " << userFund.getTotalAmount() << std::endl;
+    std::cout << "My current positions:"  << std::endl;
+    userFund.listPositions();
+
+    return 0;
+}
