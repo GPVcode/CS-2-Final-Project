@@ -5,8 +5,19 @@
 #include "../include/Expense.h"
 #include "../include/Income.h"
 #include "../include/AllocationCalculator.h"
+#include "../include/DebtStrategy.h"
 
-int main(){
+int main() {
+
+    // DebtManager debtManager;
+    // debtManager.addDebt(new CreditCardDebt(1000, 15.0)); // Credit card debt
+    // debtManager.addDebt(new Debt(5000, 8.5));            // Personal loan
+
+    // debtManager.listDebts();
+    // std::cout << "Total debt amount: $" << debtManager.calculateTotalDebt() << std::endl;
+    // std::cout << "Total interest across all debts: $" << debtManager.calculateTotalInterest() << std::endl;
+
+
     // Setting up income and expenses
     std::cout << "=== Income and Expenses Setup ===" << std::endl;
     Income userIncome(5000.0); // Example total income
@@ -55,6 +66,21 @@ int main(){
     debtManager.listDebts();
     std::cout << "Total debt amount: $" << debtManager.calculateTotalDebt() << std::endl;
     std::cout << "Total interest across all debts: $" << debtManager.calculateTotalInterest() << std::endl;
+
+    // Debt payment strategy module
+    std::cout << "\n=== Debt Repayment Strategies ===" << std::endl;
+    
+    // Use existing debts from DebtManager in DebtStrategy
+    DebtStrategy debtStrategy(debtManager.getDebts());
+
+    // Debt Snowball Strategy
+    std::cout << "\nUsing Debt Snowball Strategy:" << std::endl;
+    debtStrategy.calculateSnowballPayments(debtAllocation);
+
+    // Debt Avalanche Strategy
+    std::cout << "\nUsing Debt Avalanche Strategy:" << std::endl;
+    debtStrategy.calculateAvalanchePayments(debtAllocation);
+
 
     return 0;
 }
