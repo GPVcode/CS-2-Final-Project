@@ -1,22 +1,36 @@
 #include <iostream>
-#include <string>
-
 #include "../include/InvestmentsFund.h"
 #include "../include/DebtManager.h"
 #include "../include/CreditCardDebt.h"
-
-// Figure out most optimal strategy for paying down debts quickest and building your fund fastest.
-// with this in mind, what is something we can start building?
-    // inputting debt and interest rate
-
-// WHat class template do we need?
-    // Debts for all debts inputs
-    // income for humans income
-    // Debt algorithms
+#include "../include/Expense.h"
+#include "../include/Income.h"
+#include "../include/AllocationCalculator.h"
 
 int main(){
+    // Setting up income and expenses
+    std::cout << "=== Income and Expenses Setup ===" << std::endl;
+    Income userIncome(5000.0); // Example total income
+
+    // Adding fixed expenses
+    userIncome.addExpense(Expense("Rent", 1500.0));
+    userIncome.addExpense(Expense("Utilities", 300.0));
+    userIncome.addExpense(Expense("Groceries", 400.0));
+
+    // Calculate and display disposable income
+    double disposableIncome = userIncome.calculateDisposableIncome();
+    std::cout << "Total disposable income after expenses: $" << disposableIncome << std::endl;
+
+    // Set up allocation calculator with default 50/50 ratios
+    AllocationCalculator allocator;
+    double debtAllocation = allocator.calculateDebtAllocation(disposableIncome);
+    double investmentAllocation = allocator.calculateInvestmentAllocation(disposableIncome);
+
+    // Display allocation results
+    std::cout << "Suggested allocation to debt: $" << debtAllocation << std::endl;
+    std::cout << "Suggested allocation to investment: $" << investmentAllocation << std::endl;
+
     // Setting up investments
-    std::cout << "=== Investments Setup ===" << std::endl;
+    std::cout << "\n=== Investments Setup ===" << std::endl;
     InvestmentsFund userFund(500.0);
     userFund.addPosition("Bond A", 1000.0, 4.0);
     userFund.addPosition("Stock A", 1500.0, 10.5);
