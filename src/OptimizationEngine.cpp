@@ -85,17 +85,16 @@ void OptimizationEngine::suggestOptimalAllocation(int comparisonPeriod) {
         if (debtAllocation < interest && !insufficientFundsWarningShown) {
             std::cout << "Warning: Monthly allocation of $" << debtAllocation 
                     << " is insufficient to cover interest on debt of $" 
-                    << remainingPrincipal << ". The debt may grow without a higher payment.\n";
+                    << remainingPrincipal << ". The debt may grow without a higher payment." << std::endl;
             insufficientFundsWarningShown = true; // Only show this warning once
         }
 
-        // If allocation is enough to cover interest
-        if (principalPayment > 0) {
-            remainingPrincipal -= principalPayment;
-        } else {
-            // If allocation is less than interest, debt grows
-            remainingPrincipal += interest;
+        // Adjust final payment if it would exceed remaining debt
+        if (principalPayment > remainingPrincipal) {
+            principalPayment = remainingPrincipal;
         }
+
+        remainingPrincipal -= principalPayment;
 
         std::cout << "Month " << month << ": Remaining Debt: $" << remainingPrincipal 
                 << ", Interest Paid: $" << interest 
@@ -117,10 +116,18 @@ void OptimizationEngine::suggestOptimalAllocation(int comparisonPeriod) {
                   << " monthly to investments with expected return of " << avgReturnRate * 12 << "%." << std::endl;
 
         // Monthly investment growth projection
-        double investmentValue = disposableIncome;
+        double investmentValue = investmentsFund->getTotalAmount();
+        double monthlyContribution = disposableIncome;
+        double monthlyReturnRate = avgReturnRate / 12;
+
         std::cout << "\nMonthly Investment Growth Projection:\n";
         for (int month = 1; month <= comparisonPeriod; ++month) {
-            investmentValue += investmentValue * avgReturnRate;
+            // Add monthly contribution before growth
+            investmentValue += monthlyContribution;
+
+            // Apply monthly growth
+            investmentValue += investmentValue * monthlyReturnRate;
+
             std::cout << "Month " << month << ": Investment Value: $" << investmentValue << std::endl;
         }
     }
