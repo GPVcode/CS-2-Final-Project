@@ -48,3 +48,20 @@ void InvestmentsFund::projectGrowth(int years) const {
         << std::abs(totalChange) << ")" << std::endl;
 
 }
+
+double InvestmentsFund::getAverageReturnRate() const {
+    if(positions.empty()) return 0.0;
+
+    // We weigh each position's return by its contribution to the total fund.
+    double totalWeightedReturn  = 0.0;
+    double totalInvestment = 0.0;
+
+    for(size_t i = 0; i < positions.size(); i++){
+        totalWeightedReturn += positions[i].amount * (positions[i].avgPerformance / 100);
+        totalInvestment += positions[i].amount;
+    }
+
+    // weighted average return formula
+    // is totalInvestment greater than 0? if so, get ratio of total weighted return and total investment and multiply by 100, otherwise return 0.
+    return totalInvestment > 0 ? (totalWeightedReturn/totalInvestment) * 100 : 0.0;
+}

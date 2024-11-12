@@ -8,72 +8,111 @@
 #include "DebtStrategy.h"
 #include "InvestmentsFund.h"
 #include "EmergencyFund.h"
+#include "OptimizationEngine.h"
+
+#include <limits>
+
 
 int main() {
-    // SECTION 1: Income and Expense Setup
+    // === Step 1: Income and Expense Setup ===
     std::cout << "=== Income and Expense Setup ===" << std::endl;
-    Income userIncome(5000.0);
-    userIncome.addExpense(Expense("Rent", 1500.0));
-    userIncome.addExpense(Expense("Utilities", 300.0));
-    userIncome.addExpense(Expense("Groceries", 400.0));
+    double monthlyIncome;
+    std::cout << "Please enter your monthly income: ";
+    std::cin >> monthlyIncome;
 
+    Income userIncome(monthlyIncome);
+
+    // Gather expense details
+    std::cout << "Enter expenses (e.g., Rent, Utilities, Groceries):\n";
+    std::string expenseName;
+    double expenseAmount;
+
+    std::cout << "Enter 'done' when finished adding expenses.\n";
+    while (true) {
+        std::cout << "Expense name: ";
+        std::cin >> expenseName;
+        if (expenseName == "done") break;
+
+        std::cout << "Amount: ";
+        std::cin >> expenseAmount;
+        userIncome.addExpense(Expense(expenseName, expenseAmount));
+    }
+
+    // Calculate disposable income
     double disposableIncome = userIncome.calculateDisposableIncome();
-    std::cout << "Total disposable income after expenses: $" << disposableIncome << std::endl;
+    std::cout << "Total disposable income after expenses: $" << disposableIncome << "\n\n";
 
-    // SECTION 2: Emergency Fund Setup
-    std::cout << "\n=== Emergency Fund Setup ===" << std::endl;
-    EmergencyFund emergencyFund(0.0, userIncome.getExpenses() * 3.0); // Initial amount of $0, target goal of $6000
+    // === Step 2: Emergency Fund Setup (Target Only) ===
+    int emergencyMonths;
+    std::cout << "How many months of expenses should be saved for emergencies? ";
+    std::cin >> emergencyMonths;
 
-    // Allocate 20% of disposable income to the emergency fund
-    double emergencyFundAllocation = disposableIncome * 0.2;
-    std::cout << "Suggested allocation to emergency fund: $" << emergencyFundAllocation << std::endl;
-    emergencyFund.contribute(emergencyFundAllocation);
+    // Set emergency fund target without initial allocation
+    EmergencyFund emergencyFund(0.0, userIncome.getExpenses() * emergencyMonths);
 
-    // Recalculate remaining disposable income after emergency fund contribution
-    disposableIncome -= emergencyFundAllocation;
-    std::cout << "Remaining disposable income after emergency fund allocation: $" << disposableIncome << std::endl;
+    // === Step 3: Investment Fund Setup ===
+    std::cout << "\n=== Investment Fund Setup and Goal Progress ===\n";
+    InvestmentsFund userFund(500.0); // Initial investment fund amount
 
-    // SECTION 3: Allocation Calculation for Debt and Investment
-    std::cout << "\n=== Allocation Calculation for Debt and Investment ===" << std::endl;
-    AllocationCalculator allocator(0.5, 0.5, 10000.0, &emergencyFund); // Set 50/50 allocation, $10,000 investment goal
-    
-    double debtAllocation = allocator.calculateDebtAllocation(disposableIncome);
-    double investmentAllocation = allocator.calculateInvestmentAllocation(disposableIncome);
-    std::cout << "Suggested allocation to debt: $" << debtAllocation << std::endl;
-    std::cout << "Suggested allocation to investment: $" << investmentAllocation << std::endl;
+    std::string investmentName;
+    double investmentAmount, avgReturnRate;
 
-    // SECTION 4: Investment Fund Setup and Goal Progress
-    std::cout << "\n=== Investment Fund Setup and Goal Progress ===" << std::endl;
-    InvestmentsFund userFund(500.0); // Initial amount in investments
-    userFund.addPosition("Stock A", 1000.0, 8.0); // Example investment position
-    
-    std::cout << "Initial total in investment fund: $" << userFund.getTotalAmount() << std::endl;
-    allocator.updateInvestmentProgress(userFund); // Check if the investment goal is reached
+    std::cout << "Enter investment positions (e.g., Stocks, Bonds):\n";
+    std::cout << "Enter 'done' when finished adding investments.\n";
+    while (true) {
+        std::cout << "Investment name: ";
+        std::cin >> investmentName;
+        if (investmentName == "done") break;
 
-    // Test dynamic adjustment of allocation if investment goal isn't met
-    allocator.adjustAllocationForGoal(); // Adjust allocation if goal isn't reached
+        std::cout << "Amount: ";
+        std::cin >> investmentAmount;
+        std::cout << "Average return rate (%): ";
+        std::cin >> avgReturnRate;
 
-    std::cout << "Adjusted debt allocation: $" << allocator.calculateDebtAllocation(disposableIncome) << std::endl;
-    std::cout << "Adjusted investment allocation: $" << allocator.calculateInvestmentAllocation(disposableIncome) << std::endl;
+        userFund.addPosition(investmentName, investmentAmount, avgReturnRate);
+    }
 
-    // SECTION 5: Debt Setup and Repayment Strategies
-    std::cout << "\n=== Debt Setup and Repayment Strategy ===" << std::endl;
+    std::cout << "Total in investment fund: $" << userFund.getTotalAmount() << "\n\n";
+
+    // === Step 4: Debt Setup ===
+    std::cout << "=== Debt Setup and Repayment Strategy ===\n";
     std::vector<Debt*> debts;
-    debts.push_back(new CreditCardDebt(1000, 15.0)); // Credit card debt example
-    debts.push_back(new Debt(5000, 8.5));            // Personal loan example
+    std::string debtName;
+    double debtPrincipal, debtInterestRate;
 
-    DebtStrategy debtStrategy(debts);
-    std::cout << "\nDebt Snowball Strategy Payments:" << std::endl;
-    debtStrategy.calculateSnowballPayments(debtAllocation); // Execute Snowball strategy
+    std::cout << "Enter debts (e.g., Credit Card, Student Loan):\n";
+    std::cout << "Enter 'done' when finished adding debts.\n";
+    while (true) {
+        std::cout << "Debt name: ";
+        std::cin >> debtName;
+        if (debtName == "done") break;
 
-    std::cout << "\nDebt Avalanche Strategy Payments:" << std::endl;
-    debtStrategy.calculateAvalanchePayments(debtAllocation); // Execute Avalanche strategy
+        std::cout << "Principal: ";
+        std::cin >> debtPrincipal;
+
+        std::cout << "Interest rate (%): ";
+        std::cin >> debtInterestRate;
+        std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n'); // Clear newline character
+
+        if (debtName == "CreditCard") {
+            debts.push_back(new CreditCardDebt(debtPrincipal, debtInterestRate));
+        } else {
+            debts.push_back(new Debt(debtPrincipal, debtInterestRate));
+        }
+    }
+
+    // === Step 5: Optimization Engine for Optimal Allocation ===
+    std::cout << "\n=== Optimal Allocation Suggestion ===\n";
+    int comparisonPeriod = 12; // 1-year period for comparison
+
+    OptimizationEngine optimizer(debts, &userFund, &emergencyFund, disposableIncome);
+    optimizer.suggestOptimalAllocation(comparisonPeriod);
 
     // Cleanup dynamically allocated debts
     for (Debt* debt : debts) {
         delete debt;
     }
 
-    std::cout << "\n=== Program Completed ===" << std::endl;
+    std::cout << "\n=== Program Completed ===\n";
     return 0;
 }
