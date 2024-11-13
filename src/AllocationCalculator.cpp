@@ -6,6 +6,7 @@
 AllocationCalculator::AllocationCalculator(double debtRatio, double investmentRatio, double investmentGoal, EmergencyFund* emergencyFund) 
     : debtPercentage(debtRatio), investmentPercentage(investmentRatio), investmentGoal(investmentGoal), currentInvestmentProgress(0.0), emergencyFund(emergencyFund){}
 
+
 double AllocationCalculator::calculateDebtAllocation(double disposableIncome) const {
         return disposableIncome * debtPercentage;
     }

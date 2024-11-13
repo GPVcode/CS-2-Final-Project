@@ -11,10 +11,12 @@ DebtManager::~DebtManager() {
     debts.clear();
 }
 
+// add to collection of debts
 void DebtManager::addDebt(Debt* debt){
     debts.push_back(debt);
 }
 
+// get a list of debts in collection
 void DebtManager::listDebts() const {
     std::cout << "Listing all debts:" << std::endl;
     for(size_t i = 0; i < debts.size(); i++){
@@ -22,6 +24,7 @@ void DebtManager::listDebts() const {
     }
 }
 
+// go through debts collection and accumulate the totals
 double DebtManager::calculateTotalDebt() const {
     double total = 0.0;
     for(size_t i = 0; i < debts.size(); i++){
@@ -30,6 +33,7 @@ double DebtManager::calculateTotalDebt() const {
     return total;
 }
 
+// return total cost of the debt
 double DebtManager::calculateTotalInterest() const {
     double totalInterest = 0.0;
     for(size_t i = 0; i < debts.size(); i++){

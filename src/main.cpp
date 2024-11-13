@@ -72,7 +72,7 @@ int main() {
         std::cin >> investmentAmount;
         std::cout << "Average return rate (%): ";
         std::cin >> avgReturnRate;
-        std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n'); // Clear input buffer
+        std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n'); // Clear input buffer -- prevents unwanted input from affecting the next input operation.
 
         userFund.addPosition(investmentName, investmentAmount, avgReturnRate);
     }
@@ -96,7 +96,7 @@ int main() {
         std::cin >> debtPrincipal;
         std::cout << "Interest rate (%): ";
         std::cin >> debtInterestRate;
-        std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n'); // Clear input buffer
+        std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n'); // Clear input buffer -- prevents unwanted input from affecting the next input operation.
 
         if (debtName == "CreditCard") {
             debts.push_back(new CreditCardDebt(debtPrincipal, debtInterestRate));

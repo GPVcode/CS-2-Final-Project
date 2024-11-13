@@ -4,6 +4,7 @@
 #include "Fund.h"
 #include <iostream>
 
+// Emergency fund class 
 class EmergencyFund : public Fund {
 private:
     double targetGoal;

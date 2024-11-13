@@ -3,6 +3,8 @@
 
 #include <iostream>
 
+// Debt Header class
+
 class Debt
 {
 protected:
@@ -18,16 +20,20 @@ public:
         return principal;
     }
 
+    // Get interest rate on a debt
     double getInterestRate() const { return interestRate; }
 
+    // calculate cost of debt
     virtual double calculateInterest() const {
         return principal * (interestRate / 100);
     }
 
+    // Establish debt amount
     void setPrincipal(double newPrincipal) {
         principal = newPrincipal;
     }
 
+    // Update debt amount
     void updatePrincipal(double amount) {
         principal -= amount;
         if (principal < 0) principal = 0; // So that principal doesn't go negative
@@ -35,8 +41,3 @@ public:
 };
 
 #endif
-// I need to see how much it costs if I paid x amount a month on my credit card.
-    // debt class - totalDebt amount, interest rate,
-// How long would it take to pay down using x payment amounts if my deTimbt grows in interest at n percent.
-
-// I need to see how much I'd save if I put x amount monthly in an account returning at an n percent yield.

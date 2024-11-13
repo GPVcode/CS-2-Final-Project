@@ -4,6 +4,7 @@
 #include "Debt.h"
 #include <vector>
 
+// Debt subclass for presenting projections using these popular debt payment strategies
 class DebtStrategy{
 private:
     std::vector<Debt*> debts;

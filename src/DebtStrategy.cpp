@@ -7,7 +7,7 @@ DebtStrategy::DebtStrategy(const std::vector<Debt*>& debtList) : debts(debtList)
 
 // destructor
 DebtStrategy::~DebtStrategy(){
-    // deleted in debtmanager already
+    // deleted in debtmanager already can leave this empty
 }
 
 // comparison helper function to use along with sort function provided by algorithm object

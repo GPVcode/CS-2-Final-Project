@@ -4,6 +4,7 @@
 #include <vector>
 #include "Expense.h"
 
+// Income Base class holding total income and collection of expenses
 class Income {
 private:
     double totalIncome;

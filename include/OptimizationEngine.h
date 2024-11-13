@@ -6,6 +6,8 @@
 #include "InvestmentsFund.h"
 #include "EmergencyFund.h"
 
+// Base class for logic on optimizing disposable income allocation
+
 class OptimizationEngine {
 private:
     std::vector<Debt*> debts;

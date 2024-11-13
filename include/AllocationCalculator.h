@@ -5,7 +5,8 @@
 #include "Income.h"
 #include "EmergencyFund.h"
 
-//Calculates how much would go into either debt or investment based on user's allocation ratio and disposable income provided by Income class.git
+// Calculates how much would go into either debt or investment based on user's allocation ratio and disposable income provided by Income class.git
+
 class AllocationCalculator{
 private:
     double debtPercentage;

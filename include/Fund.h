@@ -3,6 +3,7 @@
 
 #include <iostream>
 
+// Fund base class
 class Fund
 {
 protected:
@@ -45,9 +46,3 @@ public:
 };
 
 #endif
-
-
-// // What would happen if it were to go negative on preview changes. "Game-ify" it so that it makes it clear that it should not be done.
-// // If not previewing, at all times should update funding types immediately.
-// // Should have an associated score that is relative to percentages and types of investment. User should set targets beforehand on these so that
-// // an end goal stays in mind and is displayed throughout.

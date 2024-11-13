@@ -3,6 +3,8 @@
 
 #include "Debt.h"
 
+// Sebt subclass representing credit cards
+
 class CreditCardDebt : public Debt {
 public:
     CreditCardDebt(double principalInput, double rateInput);

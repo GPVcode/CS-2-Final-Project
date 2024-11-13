@@ -4,7 +4,6 @@
 #include <string>
 
 // Expense class will simply hold the expense's name and amount
-
 class Expense{
 private:
     std::string name;

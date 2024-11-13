@@ -24,12 +24,13 @@ void InvestmentsFund::listPositions() const{
     }
 }
 
+// get projections of Investments based on period and Future Value formula
 void InvestmentsFund::projectGrowth(int years) const {
     double projectedTotal = 0.0;
 
     for(size_t i = 0; i < positions.size(); i++){
         const InvestmentPosition& position = positions[i];
-        // We re-create the Compound Interest Formula: Future Calue = Principal x (1 + Rate)^Time
+        // We re-create the Compound Interest Formula: Future Value = Principal x (1 + Rate)^Time
             // This calculates the future value of an investment
         double futureValue = position.amount * pow(1 + (position.avgPerformance / 100), years);
         double change = futureValue - position.amount;
