@@ -76,20 +76,20 @@
 ## Financial Formulas Used
 
 1. **Interest Savings on Debt Repayment**
-   - Formula: \( \text{Interest Savings} = \text{Principal} \times \left( \frac{\text{Rate}}{1 - (1 + \text{Rate})^{-\text{Period}}} \right) \)
-   - Usage: Estimates benefits of paying down high-interest debt earlier.
+   - **Formula:** `Interest Savings = Principal × (Rate / (1 - (1 + Rate)^(-Period)))`
+   - **Usage:** Estimates the benefits of paying down high-interest debt earlier.
 
 2. **Investment Growth Projection (Compound Interest)**
-   - Formula: \( \text{Future Value} = \text{Contribution} \times (1 + \text{Rate})^{\text{t}} \)
-   - Usage: Projects the future value of investment contributions over a set period.
+   - **Formula:** `Future Value = Contribution × (1 + Rate)^t`
+   - **Usage:** Projects the future value of investment contributions over a set period.
 
 3. **Average Return Rate Calculation for Investment Portfolio**
-   - Formula: \( \text{Average Return} = \frac{\sum (\text{Investment Amount} \times \text{Return Rate})}{\text{Total Investment}} \)
-   - Usage: Determines overall portfolio return rate to compare with debt interest rates.
+   - **Formula:** `Average Return = Σ(Investment Amount × Return Rate) / Total Investment`
+   - **Usage:** Determines the overall portfolio return rate to compare with debt interest rates.
 
 4. **Interest Accumulation on Remaining Debt**
-   - Formula: \( \text{Monthly Interest} = \text{Remaining Principal} \times \frac{\text{Annual Interest Rate}}{12} \)
-   - Usage: Calculates monthly interest payments for each debt.
+   - **Formula:** `Monthly Interest = Remaining Principal × (Annual Interest Rate / 12)`
+   - **Usage:** Calculates monthly interest payments on each debt.
 
 ---
 
