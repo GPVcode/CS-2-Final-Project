@@ -24,7 +24,7 @@ void InvestmentsFund::listPositions() const{
     }
 }
 
-// get projections of Investments based on period and Future Value formula
+// Displays the projected value and change (increase or decrease) for each position and the total portfolio after the specified period.
 void InvestmentsFund::projectGrowth(int years) const {
     double projectedTotal = 0.0;
 
@@ -50,6 +50,8 @@ void InvestmentsFund::projectGrowth(int years) const {
 
 }
 
+// weighted formula that considers each position's amount to represent average expected rate of return
+// Returns single percentage value and is used to compare debt and investment decisions
 double InvestmentsFund::getAverageReturnRate() const {
     if(positions.empty()) return 0.0;
 

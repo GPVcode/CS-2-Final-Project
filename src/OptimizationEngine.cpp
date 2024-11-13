@@ -60,7 +60,7 @@ void OptimizationEngine::suggestOptimalAllocation(int comparisonPeriod) {
     std::cout << "\n=== Optimal Allocation Suggestion ===\n";
     for (int i = 0; i < debts.size(); i++) {
         if (debts[i]->getPrincipal() > 0) {
-            double monthlyInterestRate = debts[i]->getInterestRate() / 12 / 100;
+            double monthlyInterestRate = debts[i]->getInterestRate() / 12 / 100; // converts an annual percentage rate (APR) into a monthly decimal rate.
             double interest = debts[i]->getPrincipal() * monthlyInterestRate;
             double principalPayment = debtAllocation - interest;
 
@@ -97,11 +97,11 @@ void OptimizationEngine::suggestOptimalAllocation(int comparisonPeriod) {
     if (loopCounter == debts.size()) {
         double investmentAllocation = disposableIncome;
         std::cout << "\nSwitching to Investment Allocation after debt is paid.\n";
-        std::cout << "Allocating $" << investmentAllocation << " monthly to investments with an expected return of " << avgReturnRate * 12 * 100 << "%.\n";
+        std::cout << "Allocating $" << investmentAllocation << " monthly to investments with an expected return of " << avgReturnRate * 12 * 100 << "%." << std::endl;
 
         double investmentValue = investmentsFund->getTotalAmount();
         std::cout << "\nMonthly Investment Growth Projection:\n";
-        for (int month = 1; month <= comparisonPeriod; ++month) {
+        for (int month = 1; month <= comparisonPeriod; month++) {
             investmentValue += investmentAllocation; // Add monthly contribution
             investmentValue *= (1 + avgReturnRate); // Apply monthly growth rate
             std::cout << "Month " << month << ": Investment Value: $" << investmentValue << std::endl;
