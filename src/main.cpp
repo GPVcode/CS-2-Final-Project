@@ -1,17 +1,16 @@
 #include <iostream>
 #include <vector>
-#include "Income.h"
-#include "Expense.h"
-#include "AllocationCalculator.h"
-#include "Debt.h"
-#include "CreditCardDebt.h"
-#include "DebtStrategy.h"
-#include "InvestmentsFund.h"
-#include "EmergencyFund.h"
-#include "OptimizationEngine.h"
-
 #include <limits>
 
+#include "../include/Income.h"
+#include "../include/Expense.h"
+#include "../include/AllocationCalculator.h"
+#include "../include/Debt.h"
+#include "../include/CreditCardDebt.h"
+#include "../include/DebtStrategy.h"
+#include "../include/InvestmentsFund.h"
+#include "../include/EmergencyFund.h"
+#include "../include/OptimizationEngine.h"
 
 int main() {
     // === Step 1: Income and Expense Setup ===
@@ -19,6 +18,7 @@ int main() {
     double monthlyIncome;
     std::cout << "Please enter your monthly income: ";
     std::cin >> monthlyIncome;
+    std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n'); // Clear the newline from the input buffer
 
     Income userIncome(monthlyIncome);
 
@@ -30,11 +30,12 @@ int main() {
     std::cout << "Enter 'done' when finished adding expenses.\n";
     while (true) {
         std::cout << "Expense name: ";
-        std::cin >> expenseName;
+        std::getline(std::cin, expenseName); // Allows for spaces in expense names
         if (expenseName == "done") break;
 
         std::cout << "Amount: ";
         std::cin >> expenseAmount;
+        std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n'); // Clear input buffer
         userIncome.addExpense(Expense(expenseName, expenseAmount));
     }
 
@@ -46,6 +47,7 @@ int main() {
     int emergencyMonths;
     std::cout << "How many months of expenses should be saved for emergencies? ";
     std::cin >> emergencyMonths;
+    std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n'); // Clear input buffer
 
     // Set emergency fund target without initial allocation
     EmergencyFund emergencyFund(0.0, userIncome.getExpenses() * emergencyMonths);
@@ -61,13 +63,14 @@ int main() {
     std::cout << "Enter 'done' when finished adding investments.\n";
     while (true) {
         std::cout << "Investment name: ";
-        std::cin >> investmentName;
+        std::getline(std::cin, investmentName); // Allows for spaces in investment names
         if (investmentName == "done") break;
 
         std::cout << "Amount: ";
         std::cin >> investmentAmount;
         std::cout << "Average return rate (%): ";
         std::cin >> avgReturnRate;
+        std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n'); // Clear input buffer
 
         userFund.addPosition(investmentName, investmentAmount, avgReturnRate);
     }
@@ -84,15 +87,14 @@ int main() {
     std::cout << "Enter 'done' when finished adding debts.\n";
     while (true) {
         std::cout << "Debt name: ";
-        std::cin >> debtName;
+        std::getline(std::cin, debtName); // Allows for spaces in debt names
         if (debtName == "done") break;
 
         std::cout << "Principal: ";
         std::cin >> debtPrincipal;
-
         std::cout << "Interest rate (%): ";
         std::cin >> debtInterestRate;
-        std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n'); // Clear newline character
+        std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n'); // Clear input buffer
 
         if (debtName == "CreditCard") {
             debts.push_back(new CreditCardDebt(debtPrincipal, debtInterestRate));
@@ -102,7 +104,6 @@ int main() {
     }
 
     // === Step 5: Optimization Engine for Optimal Allocation ===
-    std::cout << "\n=== Optimal Allocation Suggestion ===\n";
     int comparisonPeriod = 12; // 1-year period for comparison
 
     OptimizationEngine optimizer(debts, &userFund, &emergencyFund, disposableIncome);
