@@ -33,6 +33,7 @@ public:
     void addPosition(const std::string& name, double amount, double avgPerformance);
     void listPositions() const;
     void projectGrowth(int years) const;
+    double getAverageReturnRate() const;
 
 };
 

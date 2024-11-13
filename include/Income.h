@@ -13,6 +13,7 @@ public:
 
     void addExpense(const Expense& expense);
     double calculateDisposableIncome() const;
+    double getExpenses() const;
 };
 
 #endif

@@ -9,6 +9,9 @@ public:
 
     double calculateMinimumPayment() const;
     double calculateInterest() const override;
+
+    // Override to return interest rate directly for sorting purposes
+    double getInterestRate() const { return interestRate; }
 };
 
 #endif

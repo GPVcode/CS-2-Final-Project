@@ -19,5 +19,8 @@ public:
     double calculateTotalDebt() const;
     double calculateTotalInterest() const;
 
+    // Getter to access the vector of debts
+    std::vector<Debt*> getDebts() const { return debts; }
+
 };
 #endif
