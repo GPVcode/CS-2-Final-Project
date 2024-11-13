@@ -1,5 +1,7 @@
 # Grassroots Financial Planner
 
+Developed by Gabriel Villaruel and Brady Johnson
+
 **Grassroots Financial Planner** is a comprehensive tool designed to optimize income allocation for debt repayment, investment growth, and emergency savings. The app uses financial principles and algorithms to determine the most effective allocation strategy for maximizing net worth.
 
 ---
@@ -115,3 +117,4 @@
 ---
 
 This README provides a comprehensive overview of the **Grassroots Financial Planner** app, its purpose, the financial principles applied, and areas for potential growth.
+
