@@ -13,8 +13,10 @@
 #include "../include/OptimizationEngine.h"
 
 int main() {
-    // === Step 1: Income and Expense Setup ===
-    std::cout << "=== Income and Expense Setup ===" << std::endl;
+    // Step 1: Income and Expense Setup
+    std::cout << "=== Welcome to Grassroots Financial Planner ===" << std::endl;
+
+    std::cout << "\n=== Income and Expense Setup ===" << std::endl;
     double monthlyIncome;
     std::cout << "Please enter your monthly income: ";
     std::cin >> monthlyIncome;
@@ -43,7 +45,7 @@ int main() {
     double disposableIncome = userIncome.calculateDisposableIncome();
     std::cout << "Total disposable income after expenses: $" << disposableIncome << "\n\n";
 
-    // === Step 2: Emergency Fund Setup (Target Only) ===
+    // Step 2: Emergency Fund Setup (Target Only) 
     int emergencyMonths;
     std::cout << "How many months of expenses should be saved for emergencies? ";
     std::cin >> emergencyMonths;
@@ -52,7 +54,7 @@ int main() {
     // Set emergency fund target without initial allocation
     EmergencyFund emergencyFund(0.0, userIncome.getExpenses() * emergencyMonths);
 
-    // === Step 3: Investment Fund Setup ===
+    // Step 3: Investment Fund Setup 
     std::cout << "\n=== Investment Fund Setup and Goal Progress ===\n";
     InvestmentsFund userFund(500.0); // Initial investment fund amount
 
@@ -77,7 +79,7 @@ int main() {
 
     std::cout << "Total in investment fund: $" << userFund.getTotalAmount() << "\n\n";
 
-    // === Step 4: Debt Setup ===
+    // Step 4: Debt Setup
     std::cout << "=== Debt Setup and Repayment Strategy ===\n";
     std::vector<Debt*> debts;
     std::string debtName;
@@ -103,7 +105,7 @@ int main() {
         }
     }
 
-    // === Step 5: Optimization Engine for Optimal Allocation ===
+    // Step 5: Optimization Engine for Optimal Allocation 
     int comparisonPeriod = 12; // 1-year period for comparison
 
     OptimizationEngine optimizer(debts, &userFund, &emergencyFund, disposableIncome);
