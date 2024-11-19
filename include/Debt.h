@@ -33,7 +33,7 @@ public:
         principal = newPrincipal;
     }
 
-    // Update debt amount
+    // Update debt amount as result of payment payment
     void updatePrincipal(double amount) {
         principal -= amount;
         if (principal < 0) principal = 0; // So that principal doesn't go negative
